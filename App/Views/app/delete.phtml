@@ -1,0 +1,38 @@
+
+        <div id="home" class="card flex-row mx-auto px-0 deleteForm">
+            <div class="card-body">
+            <a @click="back"><i class="fas fa-arrow-left backArrow"></i></a>
+                <div class="cardDelete flex-row mx-auto px-0 mr-5">
+                    <div class="card-body text-center">
+                        <form method="post" class="form-box clearfix" action="/deleteAccount">
+                            <div>
+                                <i class="fas fa-user-times" id="deleteUserIcon"></i>
+                                <h3 class="title text-center">
+                                    To delete your account, please confirm your password
+                                </h3>
+                            </div>
+                            <div class="form-input">
+                                <span><i class="fa fa-key mt-2 inputIcon"></i></span>
+                                <input id="pass" v-model="pass" type="password" name="pass" placeholder="**************" required>
+                            </div>
+
+                            <?=
+                                (isset($_GET['authCode']) && $_GET['authCode'] == 1) ? 
+                                        '<div class="passError">
+                                            <i class="fas fa-times mb-2"></i>
+                                            Password invalid.
+                                        </div>' : '';
+                            ?>
+
+                            <div class="custom-control custom-checkbox">
+                                <input v-model="checkboxDelete" type="checkbox" class="custom-control-input" id="cb1" required>
+                                <label class="custom-control-label" for="cb1">I'm sure I'm deleting my account and all the related data, proceed</label>
+                            </div>
+
+                            <div class="mb-3">
+                                <button id="delete" type="submit" class="bg-danger btn btn-block btn-dark text-uppercase" disabled="disabled">DELETE ACCOUNT <i class="fas fa-times"></i></button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>

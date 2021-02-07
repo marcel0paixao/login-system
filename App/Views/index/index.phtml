@@ -1,0 +1,232 @@
+<div class="container">
+    <div class="row px-3">
+        <div id="login" class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 bg-transparent">
+            <div class="img-left d-none d-xl-flex w-50">
+                <div class="container my-5">
+                    <div class="row bg-transparent">
+                        <h1 id="DevW" class=" ml-4 mb-5">Developed with</h1>
+                        <div id="carousel-control" class="carousel slide h-100 w-100" data-ride="carousel"><!-- Carousel -->
+                            <div class="carousel-inner"><!--Inner -->
+                                
+                                <div class="carousel-item active carousel-itens">
+                                    <div class="carousel-title">
+                                        <h1 class="h1">Front-end</h1>
+                                    </div>
+                                    <div class="carousel-content justify-content-around">
+                                        <div class="front-end1 clearfix">
+                                            <div class="carousel-content">
+                                                    <i class="fab fa-html5 html img-left-icons"></i>
+                                                    <i class="fab fa-css3-alt css img-left-icons"></i>
+                                                </div>
+                                                <div class="carousel-content">
+                                                    <h5 id="html">HTML5</h5>
+                                                    <h5 id="css">CSS3</h5>
+                                                </div>
+                                            </div>
+                                            <div class="front-end1 clearfix">
+                                                <div class="carousel-content">
+                                                <i class="fab fa-js-square js img-left-icons"></i>
+                                                <i class="fab fa-vuejs vue img-left-icons"></i>
+                                            </div>
+                                            <div class="carousel-content">
+                                                <h5 id="js">JavaScript</h5>
+                                                <h5 id="vue">VueJs</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carousel-item carousel-itens">
+                                    <div class="carousel-title">
+                                        <h1 class="h1">Back-end</h1>
+                                    </div>
+                                    <div class="carousel-content justify-content-around">
+                                    <div class="front-end1 clearfix">
+                                            <div class="carousel-content">
+                                                <i class="fab fa-php php img-left-icons"></i>
+                                                <i class="fas fa-database sql img-left-icons"></i>
+                                            </div>
+                                            <div class="carousel-content clearfix">
+                                                <h5 id="php">PHP</h5>
+                                                <h5 id="sql">MySQL</h5>
+                                            </div>
+                                        </div>
+                                        <div class="front-end1 clearflix">
+                                            <div class="carousel-content mt-3">
+                                                <i class="fas fa-sync ajax img-left-icons"></i>
+                                                <i class="fas fa-sitemap mvc img-left-icons"></i>
+                                            </div>
+                                            <div class="carousel-content clearfix">
+                                                <h5 id="ajax">Ajax</h5>
+                                                <h5 id="mvc">MVC</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!--/Inner -->
+
+                            <!-- Controls -->
+                            <a href="#carousel-control" class="carousel-control-prev" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                            </a>
+
+                            <a href="#carousel-control" class="carousel-control-next" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                            </a>
+
+                        </div><!-- Carousel -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" v-if="login">
+                <a href="#" class="logo">
+                    <img class="logo" src="img/logo.png" alt="">
+                </a>
+                <hr>
+                <h4 class="title text-center mt-4">
+                    Sign into your account
+                </h4>
+                <form class="form-box px-3" method="post" action="/auth">
+                    <div class="form-input">
+                        <span><i class="fa fa-envelope mt-2 inputIcon"></i></span>
+                        <input type="email" name="email" placeholder="Email Address" value="<?= $_SESSION['lastLogged']['email'] ?>" required>
+                    </div>
+                    <div class="form-input">
+                        <span><i class="fa fa-key mt-2 inputIcon"></i></span>
+                        <input type="password" name="pass" placeholder="**************" value="<?= $_SESSION['lastLogged']['pass'] ?>" required>
+                    </div>
+
+                    <?php
+                        switch ($_GET['authCode']) {
+                            case 1:
+                                echo '<div class="passError">
+                                        <i class="fas fa-times mb-2"></i>
+                                        Email address or password invalid(s).
+                                    </div>';
+                                break;
+                            case 2:
+                                echo '<div class="passError">
+                                        <i class="fas fa-times mb-2"></i>
+                                        You must to login first.
+                                    </div>';
+                                break;
+                        }
+                    ?>
+
+                    <div class="mb-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="cb1" name="remember" <?= ($_SESSION['remember'] === 'on')? 'checked': ''; ?>>
+                            <label class="custom-control-label" for="cb1">Remember me</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button id="login" type="submit" class="btn btn-block btn-dark text-uppercase">LOGIN <i class="fas fa-sign-in-alt"></i></button>
+                    </div>
+
+
+                    <div class="text-right mb-1">
+                        <a class="forget-link" @click="forgetForm">Forget password?</a>
+                    </div>
+                    <div class="text-center mb-3">
+                        or login with
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <a href="#" class="btn btn-block btn-social btn-facebook"><i class="fab fa-facebook fa-2x"></i></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-block btn-social btn-google"><i class="fab fa-google fa-2x"></i></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-block btn-social btn-twitter"><i class="fab fa-twitter fa-2x"></i></a>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+
+                    <div class="text-center mb-2">
+                        Don't have an account?
+                        <a id="register" class="register-link" @click="registerForm">Register here</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body" v-if="register">
+                <a @click="loginForm"><i class="fas fa-arrow-left backArrow"></i></a>
+                <hr>
+                <h4 class="title text-center mt-2">
+                    Sign Up
+                </h4>
+                <form id="registerForm" class="form-box px-3" method="post" action="/register">
+                    <div class="form-input">
+                        <span><i class="fas fa-user-tag mt-2 inputIcon"></i></span>
+                        <input v-model="name" id="name" type="text" placeholder="Complete name" name="name" required>
+                    </div>
+                    <div class="form-input">
+                        <span><i class="fa fa-envelope mt-2 inputIcon"></i></span>
+                        <input v-model="email" id="email" type="email" placeholder="Email Address" name="email" required>
+                    </div>
+                    <div class="form-input">
+                        <span><i class="fa fa-key mt-2 inputIcon"></i></span>
+                        <input v-model="pass" id="pass" type="password" placeholder="Password" name="pass" :class="{'wrongPassConfirm': errorPass}" required>
+                    </div>
+                    <div class="form-input">
+                        <span><i class="fa fa-key mt-2 inputIcon"></i></span>
+                        <input v-model="confirmPass" id="confirmPass" type="password" placeholder="Confirm password" :class="{'wrongPassConfirm': errorPass}" required>
+                    </div>
+                    <div v-if="errorPass" class="passError">
+                        <i class="fas fa-times mb-2"></i>
+                        Passwords aren't the same.
+                    </div>
+                    <div id="birthdate" class="form-input">
+                        <span><i class="fas fa-calendar-day mt-2 inputIcon"></i></span>
+                        <input v-model="birthdate" id="birthdate" type="date" name="birthdate" required>
+                    </div>
+                    <div class="custom-control custom-checkbox terms">
+                        <input v-model="terms" type="checkbox" class="custom-control-input" id="cb1" name="terms">
+                        <label class="custom-control-label mt-4" for="cb1">I accept the terms of service and policy</label>
+                    </div>
+
+                    <hr class="mt-5">
+                    <div>
+                        <button class="btn btn-block btn-dark text-uppercase mt-4" id="signup" type="submit" disabled="disabled">SIGN UP <i class="fas fa-sign-in-alt"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body" v-if="forget">
+                <a @click="loginForm"><i class="fas fa-arrow-left backArrow"></i></a>
+                <hr>
+                <h4 class="title text-center mt-2">
+                    Recover password
+                </h4>
+                <form class="form-box px-3" method="post">
+                    <p>Type your email address, will be send a verification code.</p>
+                    <div class="form-input forgetInput">
+                        <span><i class="fa fa-envelope mt-2 inputIcon"></i></span>
+                        <input type="email" name="email" placeholder="Email Address" tabindex="10" required>
+                    </div>
+                    
+                    <hr>
+                    <div class="mb-3">
+                        <button id="forget" type="submit" class="btn btn-block btn-dark text-uppercase" @click="sendEmail">SEND EMAIL</button>
+                    </div>
+                </form>
+                <form class="form-box px-3 mt-5" method="post" action="/recover">
+                    <p>Now type here the sent code.</p>
+                    <div class="form-input forgetInput">
+                        <span><i class="fas fa-code mt-2 inputIcon"></i></span>
+                        <input type="text" name="code" placeholder="Verification code" tabindex="10" required>
+                    </div>
+                    
+                    <hr>
+                    <div class="mb-3">
+                        <button id="forget" type="submit" class="btn btn-block btn-dark text-uppercase">VERIFY CODE</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

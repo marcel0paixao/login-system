@@ -1,0 +1,361 @@
+body, html{
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: sans-serif;
+}
+body{
+    height: 100vh;
+    background: url('../img/daniele-levis-pelusi-LyiuOfvh_8Y-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    
+}
+.card{
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.1);
+}
+.img-left{
+    color: white !important;
+    width: 34rem;
+    background-size: cover;
+    background-origin: border-box;
+    border: 2px solid black;
+    border-right: 0 !important;
+    border-radius: 10px;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+.card-body{
+    padding: 2rem;
+    background-color: white !important;
+}
+.title{
+    margin-bottom: 2rem;
+}
+.form-input{
+    position: relative;
+}
+.form-input input{
+    width: 100%;
+    height: 55px;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    box-shadow: none;
+    border: 2px solid #00000020;
+    border-radius: 50px;
+    outline: none;
+    background: transparent;
+}
+.form-input span{
+    position: absolute;
+    top: 10px;
+    padding-left: 15px;
+    color: #007bff;
+}
+.form-input input::placeholder{
+    color: black;
+    padding-left: 0px;
+}
+.form-input input:focus, .form-input input:valid{
+    border: 2px solid #094e7c;
+}
+.form-input input:focus::placeholder{
+    color: #454b69;
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before{
+    background-color: #094e7c !important;
+    border: 0px;
+}
+.form-box button[type="submit"]{
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background: #094e7c;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    transition: 0.5s;
+    padding: 12px;
+}
+.form-box button[type="submit"]:hover{
+    background: #0069d9;
+}
+.forget-link, .register-link{
+    color: #094e7c;
+    font-weight: bold;
+    cursor: pointer;
+}
+.forget-link:hover, .register-link:hover{
+    color: #0069d9;
+}
+.form-box .btn-social{
+    color: white !important;
+    border: 0;
+    font-weight: bold;
+}
+.form-box .btn-facebook{
+    background: #4866a8;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background: #094e7c;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    transition: 0.5s;
+    padding: 12px;
+}
+.form-box .btn-google{
+    background: #da3f34;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    transition: 0.5s;
+    padding: 12px;
+}
+.form-box .btn-twitter{
+    background: #33ccff;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    transition: 0.5s;
+    padding: 12px;
+}
+.form-box .btn-facebook:hover{
+    background: #3d578f;
+}
+.form-box .btn-google:hover{
+    background: #bf3b31;
+}
+.form-box .btn-twitter:hover{
+    background: #2eb7e5;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+.inputIcon{
+    color:#00356d;
+}
+.img-left-content{
+    color: white;
+    font-size: 3rem;
+    float: left;
+    padding: 0 20px 0 20px;
+}
+.img-left-icons{
+    font-size: 120px;
+}
+.icon-text{
+    font-size: 1rem;
+}
+.carousel-control{
+    height: 50%;
+}
+.carousel-item .carousel-itens{
+    height: 510px;
+}
+.carousel-itens{
+    font-weight: bold;
+    font-size: 1.5rem;
+    -webkit-text-stroke-width: 0.3px;
+    -webkit-text-stroke-color: #000;
+    height: 480px;
+}
+.carousel-title{
+    margin-left: 12%;
+}
+.front-end1{
+    padding: 20px;
+    margin-left: 13%;
+    margin-bottom: 50px;
+    width: 75%;
+}
+.carousel-itens .html{
+    float: left;
+}
+.carousel-itens .css{
+    float: right;
+    margin-left: 30px;
+}
+.carousel-itens .js{
+    float: left;
+}
+.carousel-itens .vue{
+    float: right;
+}
+.carousel-itens .php{
+    float: left;
+    font-size: 100px;
+}
+.carousel-itens .sql{
+    float: right;
+    margin-left: 30px;
+    font-size: 100px;
+}
+.carousel-itens .ajax{
+    float: left;
+    font-size: 100px;
+}
+.carousel-itens .mvc{
+    float: right;
+    font-size: 80px;
+    margin-top: 20px;
+}
+.carousel-itens #html{
+    display: inline; 
+    float: left; 
+    margin-left: 10px;
+}
+.carousel-itens #css{
+    display: inline; 
+    float: right; 
+    margin-right: 10px;
+}
+.carousel-itens #js{
+    display: inline; 
+    float: left; 
+    margin-left: -5px;
+}
+.carousel-itens #vue{
+    display: inline;  
+    margin-left: 68px;
+}
+.carousel-itens #php{
+    display: inline; 
+    float: left; 
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.carousel-itens #sql{
+    display: inline; 
+    float: right; 
+    margin-top: 10px;
+}
+.carousel-itens #ajax{
+    display: inline; 
+    float: left; 
+    clear: both;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.carousel-itens #mvc{
+    float: right; 
+    display: inline;  
+    margin-top: 10px;
+    margin-right: 23px;
+}
+.html{
+    margin-right: 10px;
+}
+.js{
+    margin-right: 12px;
+}
+#DevW{
+    border-bottom: 1px solid white;
+}
+.logo{
+    width: 50px;
+    margin-left: 22%;
+    margin-bottom: 5%;
+}
+.recaptcha{
+    margin-left: 37px;
+}
+.forgetInput{
+    margin-bottom: -20px;
+}
+#birthdate{
+    margin-bottom: -10px;
+}
+.errorRegister{
+    color: red;
+    margin-top: -20px;
+    margin-left: 10px;
+}
+.wrongPassConfirm{
+    border: 2px solid red !important;
+}
+.successLogo{
+    color: #51cf66;
+    font-size: 4rem;
+    margin-left: 46%;
+}
+.logo404{
+    color: #094e7c;
+    font-size: 300px;
+    margin-left: 0;
+}
+.addressCardLogo{
+    color: black;
+    font-size: 200px;
+    margin-top: 100px;
+    margin-left: 50px;
+}
+.backArrow{
+    cursor: pointer;
+}
+.passError{
+    color: red;
+    margin-top: -20px;
+    margin-left: 10px;
+}
+.edit{
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.btn-edit{
+    float: right;
+    width: 50px !important;
+    height: 50px;
+}
+.input-edit{
+    margin-top: 5px;
+    float: left;
+    width: 250px !important;
+}
+#deleteUserIcon{
+    font-size: 110px;
+    color: red;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+.deleteForm{
+    width: 500px; 
+    height: 600px;
+}
+.cardDelete{
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 !important;
+}
+.terms{
+    margin-left: 20px;
+    margin-bottom: -40px;
+}
+#html, #css, #js, #vue, #php, #sql, #ajax, #mvc{
+    font-size: 1.1em;
+}

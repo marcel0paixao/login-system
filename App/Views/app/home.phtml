@@ -1,0 +1,73 @@
+<div id="home" class="container">
+    <div class="row px-3">
+        <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+            <div class="d-none d-md-flex">
+                <div class="container my-5">
+                    <div class="row">
+                        <i class="far fa-address-card addressCardLogo"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 mr-5">
+                    <div class="card-body text-center">
+                        <form method="post" class="form-box clearfix" action="/edit">
+                            <div v-if="!editNameState">
+                                <h1 class="title text-center mt-1">
+                                    Welcome again, <?= $this->view->info['name'] ?>!
+                                    <i v-on:click="nameEdited" class="fas fa-edit fa-xs edit"></i>
+                                </h1>
+                            </div>
+                            <div class="form-input" v-if="editNameState">
+                                <input type="text" class="input-edit" name="name" id="name" placeholder="" value=" <?= $this->view->info['name'] ?> ">
+                                <button type="submit" name="info" value="name" class="btn btn-block btn-dark text-uppercase btn-edit"><i class="fas fa-paper-plane"></i> </button>
+                            </div>
+                        </form>
+                        <hr>
+                        <form method="post" class="form-box clearfix" action="/edit">
+                            <div v-if="!editEmailState">
+                                <h4 class="mb-3">
+                                    Your email: 
+                                    <?= $this->view->info['email'] ?> 
+                                    <i v-on:click="emailEdited" class="fas fa-edit fa-xs edit"></i>
+                                </h4>
+                            </div>
+                            <div class="form-input" v-if="editEmailState">
+                                <input type="email" class="input-edit" name="email" id="name" placeholder="" value=" <?= $this->view->info['email'] ?> ">
+                                <button type="submit" name="info" value="email" class="btn btn-block btn-dark text-uppercase btn-edit"><i class="fas fa-paper-plane"></i> </button>
+                            </div>
+                        </form>
+                        <form method="post" class="form-box clearfix" action="/edit">
+                            <div v-if="!editBirthState">
+                                <h4 class="mb-3">
+                                    Your birthdate: 
+                                    <?= str_replace('00:00', '', $this->view->info['date']); ?> 
+                                    <i v-on:click="birthEdited" class="fas fa-edit fa-xs edit"></i>
+                                </h4>
+                            </div>
+                            <div class="form-input mb-3" v-if="editBirthState">
+                                <input type="date" class="input-edit" name="birthdate" id="name" placeholder="" value=" <?= str_replace('00:00', '', $this->view->info['date']); ?> ">
+                                <button 
+                                    type="submit"
+                                    class="btn btn-block btn-dark text-uppercase btn-edit" name="info" value="birthdate">
+                                <i class="fas fa-paper-plane"></i> </button>
+                            </div>
+                        </form>
+                        <hr>
+                        <form class="form-box" method="post" action="/logoff">
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-block btn-dark text-uppercase">LOG OFF <i class="fas fa-door-open"></i></button>
+                            </div>
+                        </form>
+                        <form class="form-box" method="post" action="/deleteConfirmation">
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-block btn-dark text-uppercase bg-danger">DELETE ACCOUNT <i class="fas fa-times"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

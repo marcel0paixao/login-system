@@ -1,0 +1,20 @@
+{
+    "name": "loginsystem/loginsystem",
+    "description": "A simple login system. In this project is used HTML5, CSS3, JS, VueJs, PHP7, MySQL, Ajax, and MVC architecture",
+    "require": {
+        "php": ">= 7.0"
+    },
+    "authors": [
+        {
+            "name": "Marcelo da Paixao Silva",
+            "email": "celomar01@hotmail.com",
+            "role": "Full-stack Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/",
+            "MF\\": "vendor/MF/"
+        }
+    }
+}
