@@ -38,7 +38,7 @@ CREATE TABLE users (
 And now you can use the login system with no problems, creating accounts, editing, logging in and deleting account.
 
 # Problems
-Problems that I have:
+Problems that I had:
 
 1. I could not implement Ajax already, I alter this later.
 2. The "Forget Password" uses an email code confirmation to change te password, but it's not implemented already.
@@ -52,7 +52,7 @@ Problems that I have:
 Credits for the background image: Daniele Levis Pelusi.
 
 # Author
-I'm Marcelo da Paixão, a studant of computer science and a beginner full-stack developer.
+I'm Marcelo da Paixão, a student of computer science and a beginner full-stack developer.
 
 <a href="https://github.com/marcel0paixao">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/74371070?s=460&u=dc96807a34bd825b3ee1b12178e7c852ea1a7131&v=4" width="100px;" alt=""/>
