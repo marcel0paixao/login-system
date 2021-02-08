@@ -1,7 +1,7 @@
 # LOGIN SYSTEM
 
 # Description
-This is a simple login system with CRUD and utilizing In this project is used HTML5, CSS3, JS, VueJs, Bootstrap, PHP7, MySQL, Ajax (Not now, but I'll do a few alterations in future and include), and MVC architecture. In this project, we can create an account, login, edit your personal information and complete delete your account.
+This is a simple login system with CRUD, in this project is utilized HTML5, CSS3, JS, VueJs, Bootstrap, PHP7, MySQL, Ajax (Not now, but I'll do a few alterations in future and include), and MVC architecture. In this project, we can create an account, login, edit your personal information and complete delete your account.
 
 ## Login
 ![](/Public/img/printscreenLogin.png)
