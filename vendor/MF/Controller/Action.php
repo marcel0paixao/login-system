@@ -10,8 +10,8 @@
         //rendering the layout, requiring the requested layout
         protected function render($view, $layout){
             $this->view->page = $view;
-            if (file("../../Login System/App/Views/".$layout.".phtml")) {
-                require_once "../../Login System/App/Views/".$layout.".phtml";
+            if (file("../../login-system/App/Views/".$layout.".phtml")) {
+                require_once "../../login-system/App/Views/".$layout.".phtml";
             } else {
                 $this->content();
             }

@@ -2,7 +2,8 @@
     namespace App;
 
     class Connection{
-        //function to initialize connection to the database, here we need the info of who is the host ($host), what's the database ($db) and login credentials of the database as $user and $pass
+        //function to initialize connection to the database, here we need the info of who is the host ($host),
+        //what's the database ($db) and login credentials of the database as $user and $pass
         public static function getDb(){
             $host = "localhost";
             $db = "login";

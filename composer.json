@@ -1,5 +1,5 @@
 {
-    "name": "loginsystem/loginsystem",
+    "name": "login-system/login-system",
     "description": "A simple login system. In this project is used HTML5, CSS3, JS, VueJs, PHP7, MySQL, Ajax, and MVC architecture",
     "require": {
         "php": ">= 7.0"

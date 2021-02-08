@@ -6,7 +6,7 @@ body, html{
 }
 body{
     height: 100vh;
-    background: url('../img/daniele-levis-pelusi-LyiuOfvh_8Y-unsplash.jpg');
+    background: url('../img/bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
