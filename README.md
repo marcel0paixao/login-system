@@ -58,8 +58,8 @@ I'm Marcelo da Paixão, a studant of computer science and a beginner full-stack 
  <br />
  <sub><b>Marcelo da Paixão</b></sub></a>
 
-[![Linkedin Badge](https://img.shields.io/badge/-Thiago-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tgmarinho/)](https://www.linkedin.com/in/marcelo-da-paix%C3%A3o-silva-123677194/) 
-[![Gmail Badge](https://img.shields.io/badge/-tgmarinho@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:tgmarinho@gmail.com)](marceloht461@gmail.com)
+[![Linkedin Badge](https://img.shields.io/badge/-Thiago-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/marcelo-da-paix%C3%A3o-silva-123677194/)](https://www.linkedin.com/in/marcelo-da-paix%C3%A3o-silva-123677194/) 
+[![Gmail Badge](https://img.shields.io/badge/-marceloht461@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:marceloht461@gmail.com)](marceloht461@gmail.com)
 
 <br />
 Or per telephone: 
