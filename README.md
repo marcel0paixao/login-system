@@ -43,9 +43,10 @@ Problems that I have:
 1. I could not implement Ajax already, I alter this later.
 2. The "Forget Password" uses an email code confirmation to change te password, but it's not implemented already.
 3. The email confirmation after register is not implemented already.
-4. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
-5. The file style.css haven't a good organization, I'm going to solve this later.
-6. My little VueJS experience make the home.js and login.js with a maybe not so perfectly organization too. 
+4. Login using Facebook, Gmail or Twitter is not implemented.
+5. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
+6. The file style.css haven't a good organization, I'm going to solve this later.
+7. My little VueJS experience make the home.js and login.js with a maybe not so perfectly organization too. 
 
 # Credits
 Credits for the background image: Daniele Levis Pelusi.
