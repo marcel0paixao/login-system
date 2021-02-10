@@ -34,10 +34,9 @@ var vue = new Vue({
           this.login = false
         },
         sendEmail(){
-          this.sentCode = true
-        },
-        verifyCode(){
-          alert('verified')
+          document.getElementById('emailVerification').onsubmit = function() {
+            this.sentCode = true
+          }
         },
         confirmPassword(){
           (this.confirmPass === this.pass)? this.errorPass = false : this.errorPass = true
@@ -74,7 +73,6 @@ var vue = new Vue({
       },
       terms(){
         this.nullInputs()
-        console.log(this.terms);
       }
   }
 })

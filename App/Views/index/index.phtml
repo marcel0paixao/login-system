@@ -198,11 +198,11 @@
             <div class="card-body" v-if="forget">
                 <a @click="loginForm"><i class="fas fa-arrow-left backArrow"></i></a>
                 <hr>
-                <h4 class="title text-center mt-2">
+                <h4 class="title text-center">
                     Recover password
                 </h4>
-                <form class="form-box px-3" method="post">
-                    <p>Type your email address, will be send a verification code.</p>
+                <form class="form-box px-3" id="emailVerification" method="post" action="/recoverPass">
+                    <p>First of all, type your email address, will be send an email.</p>
                     <div class="form-input forgetInput">
                         <span><i class="fa fa-envelope mt-2 inputIcon"></i></span>
                         <input type="email" name="email" placeholder="Email Address" tabindex="10" required>
@@ -213,19 +213,6 @@
                         <button id="forget" type="submit" class="btn btn-block btn-dark text-uppercase" @click="sendEmail">SEND EMAIL</button>
                     </div>
                 </form>
-                <form class="form-box px-3 mt-5" method="post" action="/recover">
-                    <p>Now type here the sent code.</p>
-                    <div class="form-input forgetInput">
-                        <span><i class="fas fa-code mt-2 inputIcon"></i></span>
-                        <input type="text" name="code" placeholder="Verification code" tabindex="10" required>
-                    </div>
-                    
-                    <hr>
-                    <div class="mb-3">
-                        <button id="forget" type="submit" class="btn btn-block btn-dark text-uppercase">VERIFY CODE</button>
-                    </div>
-                </form>
-
             </div>
         </div>
     </div>

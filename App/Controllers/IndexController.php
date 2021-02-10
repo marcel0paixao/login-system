@@ -68,5 +68,8 @@
                 $this->render('index', 'layout');
             }
         }
+        public function invalidRequest(){
+            $this->render('invalidRequest', 'layout');
+        }
     }
 ?>

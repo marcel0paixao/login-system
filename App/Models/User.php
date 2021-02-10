@@ -9,6 +9,7 @@
         private $pass;
         private $birthdate;
         private $edit;
+        private $hash;
 
         //getters and setters
         public function __get($attr){
@@ -150,6 +151,61 @@
             $stmt->execute();
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        public function recoverPass(){
+            $query = "
+                INSERT INTO
+                    recover_request (email, hash)
+                VALUES (:email, :hash)
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':email', $this->__get('email'));
+            $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->execute();
+        }
+        public function getHash(){
+            $query = "
+                SELECT 
+                    *
+                FROM 
+                    recover_request
+                WHERE
+                    hash = :hash AND status = 0
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->execute();
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        public function newPass(){
+            $query = "
+                UPDATE
+                    users
+                SET
+                    pass = :pass
+                WHERE
+                    email = (select email from recover_request where hash = :hash)
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':pass', $this->__get('pass'));
+            $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->execute();
+            $this->setStatus();
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        public function setStatus(){
+            $query = "
+                UPDATE
+                    recover_request
+                SET
+                    STATUS = 1
+                WHERE
+                    hash = :hash
+                ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->execute();
         }
     }
 ?>

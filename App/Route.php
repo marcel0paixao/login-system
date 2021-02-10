@@ -59,6 +59,26 @@
                 'controller' => 'AppController',
                 'action' => 'deleteConfirmation'
             );
+            $routes['recoverPass'] = array(
+                'route' => '/recoverPass',
+                'controller' => 'EmailController',
+                'action' => 'recoverPass'
+            );
+            $routes['recover'] = array(
+                'route' => '/recover',
+                'controller' => 'EmailController',
+                'action' => 'recover'
+            );
+            $routes['newPass'] = array(
+                'route' => '/newPass',
+                'controller' => 'EmailController',
+                'action' => 'newPass'
+            );
+            $routes['invalidRequest'] = array(
+                'route' => '/invalidRequest',
+                'controller' => 'indexController',
+                'action' => 'invalidRequest'
+            );
 
             //calling the setRoutes defined in Bootstrap class passing an array of exist routes
             $this->setRoutes($routes);
