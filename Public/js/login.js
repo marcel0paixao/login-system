@@ -34,7 +34,7 @@ var vue = new Vue({
           this.login = false
         },
         sendEmail(){
-          document.getElementById('emailVerification').onsubmit = function() {
+          document.getElementById('emailVerification').onsubmit = function(e) {
             this.sentCode = true
           }
         },

@@ -13,15 +13,14 @@
         public function recoverPass(){
             $user = Container::getModel('user');
             $user->__set('email', $_POST['email']);
-            $this->hash = md5(rand());
-            $user->__set('hash', $this->hash);
+            $user->__set('hash', md5(rand()));
 
             if ($user->userExists() != null) {
                 $user->recoverPass();
                 $link = "localhost:8080/recover?hash={$user->__get('hash')}";
                 $this->sendEmail(
-                $user->__get('email'),
-                    'titulo',
+                    $user->__get('email'),
+                    'Recupere a senha',
                     '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
                     <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
                     <br>
@@ -37,27 +36,41 @@
                 $this->mail->Subject = $subject;
                 $this->mail->Body = $body;
                 $this->mail->AltBody = $body;
-                $this->mail->send();
+                if($this->mail->send()){
+                    session_start();
+                    $_SESSION['confirmStatus'] = 'recover';
+                    $this->render('confirmEmail', 'layout');
+                } else {
+                    header('Location: /?request=invalidEmail');
+                }
             } catch (\Exception $e) {
                 echo 'error: ' . $this->mail->ErrorInfo;
             }
         }
         public function recover(){
             $user = Container::getModel('user');
-            $user->__set('hash', $_GET['hash']);
-            if ($user->getHash() != null) {
+            session_start();
+            $_SESSION['hash'] = $_GET['hash'];
+            $user->__set('hash', $_SESSION['hash']);
+            if ($user->getHash() != null) {     
                 $this->render('recoverPass', 'layoutEmail');
             } else {
                 header('Location: /invalidRequest');
             }
         }
         public function newPass(){
+            session_start();
             $user = Container::getModel('user');
             $user->__set('pass', md5($_POST['pass']));
-            $user->__set('hash', $this->hash);
-            echo $this->hash;
-            print_r($_POST);
-            echo $user->newPass();
+            $user->__set('hash', $_SESSION['hash']);
+            $user->newPass();
+            $_SESSION['confirmStatus'] = 'recoverSuccess';
+            $this->render('confirmEmail', 'layout');
+            
+        }
+        public function registerConfirm(){
+            session_start();
+            $_SESSION['confirmStatus'] = 'registerConfirm';
+            $this->render('confirmEmail', 'layout');
         }
     }
-    

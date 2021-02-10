@@ -155,7 +155,7 @@
         public function recoverPass(){
             $query = "
                 INSERT INTO
-                    recover_request (email, hash)
+                    email_request (email, hash)
                 VALUES (:email, :hash)
             ";
             $stmt = $this->db->prepare($query);
@@ -168,7 +168,7 @@
                 SELECT 
                     *
                 FROM 
-                    recover_request
+                    email_request
                 WHERE
                     hash = :hash AND status = 0
             ";
@@ -185,7 +185,7 @@
                 SET
                     pass = :pass
                 WHERE
-                    email = (select email from recover_request where hash = :hash)
+                    email = (select email from email_request where hash = :hash)
             ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':pass', $this->__get('pass'));
@@ -197,7 +197,7 @@
         public function setStatus(){
             $query = "
                 UPDATE
-                    recover_request
+                    email_request
                 SET
                     STATUS = 1
                 WHERE

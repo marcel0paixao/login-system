@@ -14,8 +14,7 @@
         public function __construct(){
             $this->view = new \stdClass();
 
-            $this->mail = new PHPMailer(true);
-            $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $this->mail = new PHPMailer(false);
             
             $this->mail->isSMTP();
             $this->mail->Host = 'smtp.gmail.com';

@@ -56,7 +56,7 @@
             //calling functions validateRegister and userExists to verify if we can register this user, if sucessfully, rendering the email confirmation page
             if ($user->validateRegister() && $user->userExists() == null){
                 $user->signUp();
-                $this->render('confirmEmail', 'layout');
+                header('Location: /confirmRegister');
             } else {
                 //if has and error to registrate the user, will be redirected to index page and defined registerError variables so 
                 //we can treat this in index page printing any message errors, I didn't yet treat this yet
@@ -65,7 +65,7 @@
                     'email' => $_POST['email']
                 );
                 $this->view->registerError = true;
-                $this->render('index', 'layout');
+                header('Location: /');
             }
         }
         public function invalidRequest(){

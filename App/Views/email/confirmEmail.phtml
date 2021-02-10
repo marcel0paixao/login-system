@@ -4,14 +4,30 @@
             <div class="card-body" v-show="login">
                 <i class="fas fa-check-circle successLogo"></i>
                 <hr>
-                <h4 class="title text-center mt-4">
-                Success! You have successfully signed up.
-                </h4>
-                <form class="form-box px-3" method="post" action="/">
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
-                    </div>
-                </form>
+                <?php 
+                    if ($_SESSION['confirmStatus'] == 'recover') { ?>
+                        <h4 class="title text-center mt-4">
+                        You have successfully sent an recover link, check your email inbox.
+                        </h4>
+                <?php } else if ($_SESSION['confirmStatus'] == 'recoverSuccess'){ ?>
+                        <h4 class="title text-center mt-4">
+                            Success! You have successfully altered your password!
+                        </h4>
+                        <form class="form-box px-3" method="post" action="/">
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
+                            </div>
+                        </form>
+                <?php } else {?>
+                    <h4 class="title text-center mt-4">
+                        Success! You have successfully sign up, proceed with the email confirmation in your email inbox
+                    </h4>
+                    <form class="form-box px-3" method="post" action="/">
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
+                        </div>
+                    </form>
+                <?php } ?>
             </div>
         </div>
     </div>

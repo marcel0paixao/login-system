@@ -201,16 +201,16 @@
                 <h4 class="title text-center">
                     Recover password
                 </h4>
-                <form class="form-box px-3" id="emailVerification" method="post" action="/recoverPass">
+                <form class="form-box px-3" method="post" action="/recoverPass">
                     <p>First of all, type your email address, will be send an email.</p>
                     <div class="form-input forgetInput">
                         <span><i class="fa fa-envelope mt-2 inputIcon"></i></span>
-                        <input type="email" name="email" placeholder="Email Address" tabindex="10" required>
+                        <input type="email" name="email" placeholder="Email Address" required>
                     </div>
                     
                     <hr>
                     <div class="mb-3">
-                        <button id="forget" type="submit" class="btn btn-block btn-dark text-uppercase" @click="sendEmail">SEND EMAIL</button>
+                        <button id="forget" type="submit" id="emailVerification" class="btn btn-block btn-dark text-uppercase" @click="sendEmail">SEND EMAIL</button>
                     </div>
                 </form>
             </div>
