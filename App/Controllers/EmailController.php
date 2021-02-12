@@ -10,9 +10,21 @@
     */
     class EmailController extends Emails{
         private $hash;
+        private $pass;
+        private $oldPass;
+        private $requestType;
+
+        public function __get($var){
+            return $this->$var;
+        }
+        public function __set($var, $value){
+            return $this->$var = $value;
+        }
+
         public function recoverPass(){
             $user = Container::getModel('user');
             $user->__set('email', $_POST['email']);
+            $user->__set('requestType', 'recoverPass');
             $user->__set('hash', md5(rand()));
 
             if ($user->userExists() != null) {
@@ -39,7 +51,7 @@
                 if($this->mail->send()){
                     session_start();
                     $_SESSION['confirmStatus'] = 'recover';
-                    $this->render('confirmEmail', 'layout');
+                    $this->render('confirmEmail', 'layout'); 
                 } else {
                     header('Location: /?request=invalidEmail');
                 }
@@ -51,6 +63,7 @@
             $user = Container::getModel('user');
             session_start();
             $_SESSION['hash'] = $_GET['hash'];
+            $_SESSION['passStatus'] = 'unAltered';
             $user->__set('hash', $_SESSION['hash']);
             if ($user->getHash() != null) {     
                 $this->render('recoverPass', 'layoutEmail');
@@ -60,13 +73,35 @@
         }
         public function newPass(){
             session_start();
+            if (!isset($_SESSION['passStatus'])) {
+                header('Location: /invalidRequest');
+                unset($_SESSION);
+                session_destroy();
+            }
             $user = Container::getModel('user');
-            $user->__set('pass', md5($_POST['pass']));
-            $user->__set('hash', $_SESSION['hash']);
-            $user->newPass();
-            $_SESSION['confirmStatus'] = 'recoverSuccess';
-            $this->render('confirmEmail', 'layout');
-            
+            $this->__set('hash', $_SESSION['hash']);
+
+            if (!isset($_POST['pass']) || !isset($_POST['oldPass'])) {
+                $_POST['pass'] = $this->__get('pass');
+                $_POST['oldPass'] = $this->__get('oldPass');
+            } 
+            else{
+                $this->__set('pass', md5($_POST['pass']));
+                $this->__set('oldPass', md5($_POST['oldPass']));
+            }
+            $user->__set('pass', $this->__get('pass'));
+            $user->__set('oldPass', $this->__get('oldPass'));
+            $user->__set('hash', $this->__get('hash'));
+            $user->__set('requestType', 'recoverPass');
+
+            if ($user->oldPass()['user'] == 1) {
+                $user->newPass();
+                $_SESSION['passStatus'] = 'altered';
+                $_SESSION['confirmStatus'] = 'recoverSuccess';
+                $this->render('confirmEmail', 'layout');
+            } else {
+                header('Location: /recover?hash='.$this->__get('hash').'&authCode=1');
+            }
         }
         public function registerConfirm(){
             session_start();

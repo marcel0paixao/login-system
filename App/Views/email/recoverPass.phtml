@@ -9,6 +9,23 @@
                 </h4>
                 <form class="form-box px-3" method="post" action="/newPass">
                     <div class="form-input">
+                    <?php
+                        $authCode = isset($_GET['authCode']) ? $_GET['authCode'] : '';
+                        $errorPass = ($authCode == 1) ? true : false;
+                    ?>
+                        <span><i class="fa fa-key mt-2 inputIcon"></i></span>
+                        <input class=
+                            "<?= ($errorPass) ?'wrongPassConfirm' : '';
+                            ?>"
+                                type="password" placeholder="Old password" name="oldPass" required>
+                            <?= ($errorPass) ? 
+                                     '<div class="passError">
+                                        <i class="fas fa-times mb-2"></i>
+                                        Password incorrect.
+                                    </div>' : '';
+                            ?>
+                    </div>
+                    <div class="form-input">
                         <span><i class="fa fa-key mt-2 inputIcon"></i></span>
                         <input v-model="pass" type="password" placeholder="New password" name="pass" :class="{'wrongPassConfirm': errorPass}" required>
                     </div>

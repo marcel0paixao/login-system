@@ -7,9 +7,11 @@
         private $name;
         private $email;
         private $pass;
+        private $oldPass;
         private $birthdate;
         private $edit;
         private $hash;
+        private $requestType;
 
         //getters and setters
         public function __get($attr){
@@ -155,12 +157,13 @@
         public function recoverPass(){
             $query = "
                 INSERT INTO
-                    email_request (email, hash)
-                VALUES (:email, :hash)
+                    email_request (email, hash, type)
+                VALUES (:email, :hash, :type)
             ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':email', $this->__get('email'));
             $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->bindValue(':type', $this->__get('requestType'));
             $stmt->execute();
         }
         public function getHash(){
@@ -185,11 +188,12 @@
                 SET
                     pass = :pass
                 WHERE
-                    email = (select email from email_request where hash = :hash)
+                    email = (select email from email_request where hash = :hash AND type = :type)
             ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':pass', $this->__get('pass'));
             $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->bindValue(':type', $this->__get('requestType'));
             $stmt->execute();
             $this->setStatus();
             return $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -206,6 +210,29 @@
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':hash', $this->__get('hash'));
             $stmt->execute();
+        }
+        public function oldPass(){
+            $query = "
+                SELECT
+                    count(*) as user
+                FROM
+                    users
+                WHERE
+                    email = (
+                        SELECT 
+                            email 
+                        FROM 
+                            email_request 
+                        WHERE 
+                            hash = :hash)
+                    AND pass = :oldPass
+                ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->bindValue(':oldPass', $this->__get('oldPass'));
+            $stmt->execute();
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
     }
 ?>
