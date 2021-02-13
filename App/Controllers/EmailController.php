@@ -3,6 +3,7 @@
     use MF\Controller\Action;
     use MF\Model\Container;
     use MF\Controller\Emails;
+    use App\Controllers\AuthController;
 
     /*
     * class EmailController, responsible for define functions to control email actions.
@@ -49,6 +50,8 @@
         //checks if the user exists and create an request in database, after this will be called the
         //function responsable to send the recover email passing the parameters
         public function recoverPass(){
+            $auth = new AppController();
+            $auth-> validateAuth();
             $email = Container::getModel('email');
             $email->__set('email', $_POST['email']);
             $email->__set('requestType', 'recoverPass');

@@ -39,11 +39,6 @@
                 'controller' => 'indexController',
                 'action' => 'register'
             );
-            $routes['recover'] = array(
-                'route' => '/recover',
-                'controller' => 'authController',
-                'action' => 'recoverPass'
-            );
             $routes['edit'] = array(
                 'route' => '/edit',
                 'controller' => 'AppController',
@@ -78,11 +73,6 @@
                 'route' => '/invalidRequest',
                 'controller' => 'indexController',
                 'action' => 'invalidRequest'
-            );
-            $routes['registerConfirm'] = array(
-                'route' => '/registerConfirm',
-                'controller' => 'EmailController',
-                'action' => 'registerConfirm'
             );
 
             //calling the setRoutes defined in Bootstrap class passing an array of exist routes
