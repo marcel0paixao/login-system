@@ -21,25 +21,9 @@
             return $this->$var = $value;
         }
 
-        public function recoverPass(){
-            $user = Container::getModel('user');
-            $user->__set('email', $_POST['email']);
-            $user->__set('requestType', 'recoverPass');
-            $user->__set('hash', md5(rand()));
-
-            if ($user->userExists() != null) {
-                $user->recoverPass();
-                $link = "localhost:8080/recover?hash={$user->__get('hash')}";
-                $this->sendEmail(
-                    $user->__get('email'),
-                    'Recupere a senha',
-                    '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
-                    <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
-                    <br>
-                    </a>'
-                );
-            } 
-        }
+        //function that uses the PHPMailer to send an email to user.
+        //here we need some parameters, like who we are going to send
+        //the email ($to), the subject and the content of the email ($body)
         public function sendEmail($to, $subject, $body){
             try {
                 $this->mail->addAddress($to);
@@ -59,53 +43,93 @@
                 echo 'error: ' . $this->mail->ErrorInfo;
             }
         }
+
+        //in index page, in submit of the recover password form this function is going to be actived.
+        //function responsable for set the variables and call to function to send the recover email,
+        //checks if the user exists and create an request in database, after this will be called the
+        //function responsable to send the recover email passing the parameters
+        public function recoverPass(){
+            $email = Container::getModel('email');
+            $email->__set('email', $_POST['email']);
+            $email->__set('requestType', 'recoverPass');
+            $email->__set('hash', md5(rand()));
+
+            if ($email->userExists() != null) {
+                $email->recoverPass();
+                $link = "localhost:8080/recover?hash={$email->__get('hash')}";
+                $this->sendEmail(
+                    $email->__get('email'),
+                    'Recupere a senha',
+                    '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                    <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
+                    <br>
+                    </a>'
+                );
+            } 
+        }
+
+        //called in the path /recover, path /recover called by the link sent in the recover-email
+        //if the request hash is valid, redirecting to the page responsable to define the new password
         public function recover(){
-            $user = Container::getModel('user');
+            $email = Container::getModel('email');
             session_start();
             $_SESSION['hash'] = $_GET['hash'];
             $_SESSION['passStatus'] = 'unAltered';
-            $user->__set('hash', $_SESSION['hash']);
-            if ($user->getHash() != null) {     
+            $email->__set('hash', $_SESSION['hash']);
+            if ($email->getHash() != null) {     
                 $this->render('recoverPass', 'layoutEmail');
             } else {
                 header('Location: /invalidRequest');
             }
         }
+
+        //function to ask to the user the new pass and insert in the database
         public function newPass(){
             session_start();
+            //if to verify if the request is valid
             if (!isset($_SESSION['passStatus'])) {
                 header('Location: /invalidRequest');
                 unset($_SESSION);
                 session_destroy();
             }
-            $user = Container::getModel('user');
+            $email = Container::getModel('email');
             $this->__set('hash', $_SESSION['hash']);
+
+            //if the user send an incorrect old password, he'll be redirected to the same page
+            //with GET['authCode'] = 1 to show in page that the password is incorrect. but at
+            //redirect the POST variable will be unset, to prevent this, we define the POST again.
 
             if (!isset($_POST['pass']) || !isset($_POST['oldPass'])) {
                 $_POST['pass'] = $this->__get('pass');
                 $_POST['oldPass'] = $this->__get('oldPass');
             } 
+            //if it's the first access in the page, what means the user didn't try to access
+            //an invalid request and he didn't insert the wrong old password, we'll define
+            //the variables pass and oldPass by the POST
             else{
                 $this->__set('pass', md5($_POST['pass']));
                 $this->__set('oldPass', md5($_POST['oldPass']));
             }
-            $user->__set('pass', $this->__get('pass'));
-            $user->__set('oldPass', $this->__get('oldPass'));
-            $user->__set('hash', $this->__get('hash'));
-            $user->__set('requestType', 'recoverPass');
+            //setting the variables to User model
+            $email->__set('pass', $this->__get('pass'));
+            $email->__set('oldPass', $this->__get('oldPass'));
+            $email->__set('hash', $this->__get('hash'));
+            $email->__set('requestType', 'recoverPass');
 
-            if ($user->oldPass()['user'] == 1) {
-                $user->newPass();
+            //if the old password sent by POST is correct, it's will be 
+            //defined the new password passed in the POST
+            if ($email->oldPass()['user'] == 1) {
+                $email->newPass();
                 $_SESSION['passStatus'] = 'altered';
-                $_SESSION['confirmStatus'] = 'recoverSuccess';
-                $this->render('confirmEmail', 'layout');
+                $this->confirmPage('recoverSuccess');
+                //if the password is incorrect, redirecting with GET authCode = 1
             } else {
                 header('Location: /recover?hash='.$this->__get('hash').'&authCode=1');
             }
         }
-        public function registerConfirm(){
-            session_start();
-            $_SESSION['confirmStatus'] = 'registerConfirm';
+        //page to show the confirmation of the password change
+        public function confirmPage($confirmStatus){
+            $_SESSION['confirmStatus'] = $confirmStatus;
             $this->render('confirmEmail', 'layout');
         }
     }

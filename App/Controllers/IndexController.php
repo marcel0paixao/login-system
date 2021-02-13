@@ -2,6 +2,7 @@
     namespace App\Controllers;
     use MF\Controller\Action;
     use MF\Model\Container;
+    use App\Controllers\EmailController;
 
     /*
     * class indexController will define the non functional requirements of the 
@@ -56,7 +57,8 @@
             //calling functions validateRegister and userExists to verify if we can register this user, if sucessfully, rendering the email confirmation page
             if ($user->validateRegister() && $user->userExists() == null){
                 $user->signUp();
-                header('Location: /confirmRegister');
+                $email = new EmailController();
+                $email->confirmPage('confirmEmail');
             } else {
                 //if has and error to registrate the user, will be redirected to index page and defined registerError variables so 
                 //we can treat this in index page printing any message errors, I didn't yet treat this yet
@@ -68,6 +70,7 @@
                 header('Location: /');
             }
         }
+        //if the ser try to access a non-valid page, will be redirected
         public function invalidRequest(){
             $this->render('invalidRequest', 'layout');
         }
