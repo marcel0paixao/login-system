@@ -5,29 +5,60 @@
                 <i class="fas fa-check-circle successLogo"></i>
                 <hr>
                 <?php 
-                    if ($_SESSION['confirmStatus'] == 'recover') { ?>
-                        <h4 class="title text-center mt-4">
-                        You have successfully sent an recover link, check your email inbox.
-                        </h4>
-                <?php } else if ($_SESSION['confirmStatus'] == 'recoverSuccess'){ ?>
-                        <h4 class="title text-center mt-4">
-                            Success! You have successfully altered your password!
-                        </h4>
-                        <form class="form-box px-3" method="post" action="/">
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
-                            </div>
-                        </form>
-                <?php } else {?>
-                    <h4 class="title text-center mt-4">
-                        Success! You have successfully sign up, proceed with the email confirmation in your email inbox
-                    </h4>
-                    <form class="form-box px-3" method="post" action="/">
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
-                        </div>
-                    </form>
-                <?php } ?>
+                    use App\Controllers\EmailController;
+
+                    switch ($_SESSION['confirmStatus']) {
+                        case 'recover':
+                            echo '<h4 class="title text-center mt-4">
+                                    You have successfully sent an recover link, check your email inbox.
+                                </h4>';
+                            break;
+                        case 'recoverSuccess':
+                            echo '<h4 class="title text-center mt-4">
+                                    Success! You have successfully altered your password!
+                                </h4>
+                                <form class="form-box px-3" method="post" action="/">
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
+                                    </div>
+                                </form>';
+                            break;
+                        case 'confirmEmail':
+                            echo '<h4 class="title text-center mt-4">
+                                Success! You have successfully sign up, proceed with the email confirmation in your email inbox
+                            </h4>
+                            <form class="form-box px-3" method="post" action="/">
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
+                                </div>
+                            </form>';
+                            break;
+                        case 'resendConfirmEmail':
+                            echo '<h4 class="title text-center mt-4">
+                                The confirmation email has been sent, check your email inbox.
+                            </h4>
+                            <form class="form-box px-3" method="post" action="/">
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-block btn-dark text-uppercase">GO TO LOGIN PAGE</button>
+                                </div>
+                            </form>';
+                            break;
+                        case 'tryied to login without confirmation':
+                            echo '<h4 class="title text-center mt-4">
+                                    You need to confirm your account to proceed, check your email and proceed with the email confirmation in your email inbox.
+                                </h4>
+                                <form class="form-box px-3" method="post" action="/resendRegisterConfirm">
+                                    <div class="mb-3">
+                                    <button type="submit" class="btn btn-block btn-dark text-uppercase btn-edit"><i class="fas fa-paper-plane"></i> </button>
+                                    <span class="mt-4 mx-3 float-right">Didnt recieved the email? Re-send </span>
+                                    </div>
+                                </form>';
+                            break;
+                        default:
+                            header('Location: /invalidRequest');
+                            break;
+                        }
+                    ?>
             </div>
         </div>
     </div>

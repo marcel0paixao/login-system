@@ -11,6 +11,7 @@
     */
     class EmailController extends Emails{
         private $hash;
+        private $email;
         private $pass;
         private $oldPass;
         private $requestType;
@@ -25,7 +26,7 @@
         //function that uses the PHPMailer to send an email to user.
         //here we need some parameters, like who we are going to send
         //the email ($to), the subject and the content of the email ($body)
-        public function sendEmail($to, $subject, $body){
+        public function sendEmail($to, $subject, $body, $confirmStatus){
             try {
                 $this->mail->addAddress($to);
 
@@ -34,11 +35,10 @@
                 $this->mail->Body = $body;
                 $this->mail->AltBody = $body;
                 if($this->mail->send()){
-                    session_start();
-                    $_SESSION['confirmStatus'] = 'recover';
-                    $this->render('confirmEmail', 'layout'); 
+                    $_SESSION['confirmStatus'] = $confirmStatus;
+                    return true;
                 } else {
-                    header('Location: /?request=invalidEmail');
+                    //header('Location: /?request=invalidEmail');
                 }
             } catch (\Exception $e) {
                 echo 'error: ' . $this->mail->ErrorInfo;
@@ -50,8 +50,6 @@
         //checks if the user exists and create an request in database, after this will be called the
         //function responsable to send the recover email passing the parameters
         public function recoverPass(){
-            $auth = new AppController();
-            $auth-> validateAuth();
             $email = Container::getModel('email');
             $email->__set('email', $_POST['email']);
             $email->__set('requestType', 'recoverPass');
@@ -60,14 +58,17 @@
             if ($email->userExists() != null) {
                 $email->recoverPass();
                 $link = "localhost:8080/recover?hash={$email->__get('hash')}";
-                $this->sendEmail(
+                if($this->sendEmail(
                     $email->__get('email'),
                     'Recupere a senha',
                     '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
                     <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
                     <br>
-                    </a>'
-                );
+                    </a>',
+                    'recover'
+                )){
+                    $this->confirmPage('recover');
+                }
             } 
         }
 
@@ -134,5 +135,71 @@
         public function confirmPage($confirmStatus){
             $_SESSION['confirmStatus'] = $confirmStatus;
             $this->render('confirmEmail', 'layout');
+        }
+        //confirmation of the email after register
+        public function confirmEmail(){
+            $email = Container::getModel('email');
+            $email->__set('hash', md5(rand()));
+            $email->__set('email', $this->__get('email'));
+            $email->__set('requestType', 'confirmAccount');
+            $link;
+
+            if ($email->requestAlreadyExists() == null) {
+                $email->confirmEmail();
+                $link = "localhost:8080/confirmAccount?hash={$email->__get('hash')}";
+            }
+            else{
+                $link = "localhost:8080/confirmAccount?hash={$email->requestAlreadyExists()['hash']}";
+            }
+            if($this->sendEmail(
+                $email->__get('email'),
+                'Confirme sua conta',
+                '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                    <span style="font-size:18px;color:#1861bf">Confirme sua conta</span>
+                    <br>
+                </a>',
+                'confirmEmail'
+            )){
+                $this->confirmPage('confirmEmail');
+            }
+
+        }
+        public function confirmAccount(){
+            $email = Container::getModel('email');
+            $email->__set('hash', $_GET['hash']);
+            if ($email->getHash() != null) {   
+                $this->render('accountConfirmed', 'layoutEmail');
+                $email->setStatus();
+            } else {
+                header('Location: /invalidRequest');
+            }
+        }
+        public function resendRegisterConfirm(){
+            session_start();
+            if (!isset($_SESSION['resendEmail'])) {
+                header('Location: /');
+            }
+            $email = Container::getModel('email');
+            $email->__set('email', $_SESSION['resendEmail']);
+            $email->__set('requestType', 'confirmAccount');
+            $link;
+
+            if ($email->requestAlreadyExists() == null) {
+                $link = "localhost:8080/confirmAccount?hash={$email->__get('hash')}";
+            }
+            else{
+                $link = "localhost:8080/confirmAccount?hash={$email->requestAlreadyExists()['hash']}";
+            }
+            if($this->sendEmail(
+                $email->__get('email'),
+                'Confirme sua conta',
+                '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                    <span style="font-size:18px;color:#1861bf">Confirme sua conta</span>
+                    <br>
+                </a>',
+                'confirmEmail'
+            )){
+                $this->confirmPage('resendConfirmEmail');
+            }
         }
     }

@@ -58,9 +58,11 @@
             if ($user->validateRegister() && $user->userExists() == null){
                 $user->signUp();
                 $email = new EmailController();
+                $email->__set('email', $_POST['email']);
+                $email->confirmEmail();
                 $email->confirmPage('confirmEmail');
             } else {
-                //if has and error to registrate the user, will be redirected to index page and defined registerError variables so 
+                //if has an error to registrate the user, will be redirected to index page and defined registerError variables so 
                 //we can treat this in index page printing any message errors, I didn't yet treat this yet
                 $this->view->user = array(
                     'name' => $_POST['name'],
@@ -70,7 +72,7 @@
                 header('Location: /');
             }
         }
-        //if the ser try to access a non-valid page, will be redirected
+        //if the user try to access a non-valid page, will be redirected
         public function invalidRequest(){
             $this->render('invalidRequest', 'layout');
         }

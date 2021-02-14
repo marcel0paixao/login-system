@@ -22,7 +22,7 @@
             $this->mail->Username = 'test@gmail.com';
             $this->mail->Password = 'test';
             $this->mail->Port = 587;
-            $this->mail->setFrom('test@gmail.com');
+            $this->mail->setFrom('test');
         }
     }
 ?>
