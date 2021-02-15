@@ -145,6 +145,7 @@
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
+        //inserting the request in database
         public function confirmEmail(){
             $query = "
                 INSERT INTO
@@ -158,6 +159,7 @@
             $stmt->bindValue(':status', '0');
             $stmt->execute();
         }
+        //function to verify if the account is confirmed
         public function getEmailConfirmation(){
             $query = "
                 SELECT
@@ -180,6 +182,7 @@
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
+        //to verify if the the request already exists
         public function requestAlreadyExists(){
             $query = "
                 SELECT
@@ -196,6 +199,7 @@
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
+        //to get the hash by email
         public function getHashPerEmail(){
             $query = "
                 SELECT

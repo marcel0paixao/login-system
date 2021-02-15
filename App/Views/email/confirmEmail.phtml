@@ -11,7 +11,13 @@
                         case 'recover':
                             echo '<h4 class="title text-center mt-4">
                                     You have successfully sent an recover link, check your email inbox.
-                                </h4>';
+                                </h4>
+                                <form class="form-box px-3" method="post" action="/recoverPass">
+                                    <div class="mb-3">
+                                    <button type="submit" name="btn" value="resend" class="btn btn-block btn-dark text-uppercase btn-edit"><i class="fas fa-paper-plane"></i> </button>
+                                    <span class="mt-4 mx-3 float-right">Didnt recieved the email? Re-send </span>
+                                    </div>
+                                </form>';
                             break;
                         case 'recoverSuccess':
                             echo '<h4 class="title text-center mt-4">

@@ -20,9 +20,9 @@
             $this->mail->Host = 'smtp.gmail.com';
             $this->mail->SMTPAuth = true;
             $this->mail->Username = 'test@gmail.com';
-            $this->mail->Password = 'test';
+            $this->mail->Password = '';
             $this->mail->Port = 587;
-            $this->mail->setFrom('test');
+            $this->mail->setFrom('test@gmail.com');
         }
     }
 ?>
