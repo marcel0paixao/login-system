@@ -34,6 +34,14 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL,
     birthdate DATE NOT NULL
 );
+
+CREATE TABLE email_request(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	email VARCHAR(100) NOT NULL,
+    hash VARCHAR(32) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    status INT(10) NOT NULL
+);
 ```
 And now you can use the login system with no problems, creating accounts, editing, logging in and deleting account.
 
@@ -41,11 +49,10 @@ And now you can use the login system with no problems, creating accounts, editin
 Problems that I had:
 
 1. I could not implement Ajax already, I alter this later.
-2. The email confirmation after register is not implemented already.
-3. Login using Facebook, Gmail or Twitter is not implemented.
-4. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
-5. The file style.css haven't a good organization, I'm going to solve this later.
-6. My little VueJS experience make the home.js and login.js with a maybe not so perfectly organization too. 
+2. Login using Facebook, Gmail or Twitter is not implemented.
+3. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
+4. The file style.css haven't a good organization, I'm going to solve this later.
+5. My little VueJS experience make the home.js and login.js with a maybe not so perfectly organization too. 
 
 # Credits
 Credits for the background image: Daniele Levis Pelusi.
