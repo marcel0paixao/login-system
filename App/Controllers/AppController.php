@@ -2,6 +2,8 @@
     namespace App\Controllers;
     use MF\Controller\Action;
     use MF\Model\Container;
+    use App\Controllers\EmailController;
+
 
     /*
     * class authController will define the non functional requirements of the 
@@ -71,6 +73,11 @@
             //verify if the user really exists, to delete.
             if ($user->confirmDelete()['user'] == 1) {
                 $user->delete();
+                $email = Container::getModel('email');
+                $email->__set('email', $_SESSION['email']);
+                $email->__set('requestType', 'confirmAccount');
+                $email->__set('hash', $email->requestAlreadyExists()['hash']);
+                $email->setStatus();
                 $this->render('confirmDelete', 'layoutHome');
                 session_destroy();
                 unset( $_SESSION );

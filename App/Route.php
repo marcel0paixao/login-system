@@ -74,7 +74,21 @@
                 'controller' => 'indexController',
                 'action' => 'invalidRequest'
             );
-
+            $routes['confirmAccount'] = array(
+                'route' => '/confirmAccount',
+                'controller' => 'emailController',
+                'action' => 'confirmAccount'
+            );
+            $routes['resendRegisterConfirm'] = array(
+                'route' => '/resendRegisterConfirm',
+                'controller' => 'emailController',
+                'action' => 'resendRegisterConfirm'
+            );
+            $routes['resendRecoverPass'] = array(
+                'route' => '/resendRecoverPass',
+                'controller' => 'emailController',
+                'action' => 'resendRecoverPass'
+            );
             //calling the setRoutes defined in Bootstrap class passing an array of exist routes
             $this->setRoutes($routes);
         }

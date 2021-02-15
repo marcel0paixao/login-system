@@ -11,6 +11,7 @@
     */
     class EmailController extends Emails{
         private $hash;
+        private $email;
         private $pass;
         private $oldPass;
         private $requestType;
@@ -25,7 +26,7 @@
         //function that uses the PHPMailer to send an email to user.
         //here we need some parameters, like who we are going to send
         //the email ($to), the subject and the content of the email ($body)
-        public function sendEmail($to, $subject, $body){
+        public function sendEmail($to, $subject, $body, $confirmStatus){
             try {
                 $this->mail->addAddress($to);
 
@@ -34,11 +35,10 @@
                 $this->mail->Body = $body;
                 $this->mail->AltBody = $body;
                 if($this->mail->send()){
-                    session_start();
-                    $_SESSION['confirmStatus'] = 'recover';
-                    $this->render('confirmEmail', 'layout'); 
+                    $_SESSION['confirmStatus'] = $confirmStatus;
+                    return true;
                 } else {
-                    header('Location: /?request=invalidEmail');
+                    //header('Location: /?request=invalidEmail');
                 }
             } catch (\Exception $e) {
                 echo 'error: ' . $this->mail->ErrorInfo;
@@ -50,25 +50,56 @@
         //checks if the user exists and create an request in database, after this will be called the
         //function responsable to send the recover email passing the parameters
         public function recoverPass(){
-            $auth = new AppController();
-            $auth-> validateAuth();
+            session_start();
             $email = Container::getModel('email');
-            $email->__set('email', $_POST['email']);
-            $email->__set('requestType', 'recoverPass');
-            $email->__set('hash', md5(rand()));
+            if (!isset($_POST['email']) && !isset($_POST['btn'])) {
+                //header('Location: /');
+            }
+            //it's going to verify if we are accessing the path by the button, and if not
+            //will be created a new request in the dabase and sent an email.
+            //if non-satisfy will be get the hash in database and send an email with the link with the hash
+            if (!isset($_POST['btn'])) {
+                $email->__set('email', $_POST['email']);
+                $email->__set('requestType', 'recoverPass');
+                $email->__set('hash', md5(rand()));
+                $_SESSION['resendEmail'] = $_POST['email'];
+                $_SESSION['resendHash'] =  $email->__get('hash');
 
-            if ($email->userExists() != null) {
-                $email->recoverPass();
-                $link = "localhost:8080/recover?hash={$email->__get('hash')}";
-                $this->sendEmail(
-                    $email->__get('email'),
-                    'Recupere a senha',
-                    '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
-                    <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
-                    <br>
-                    </a>'
-                );
-            } 
+                if ($email->userExists() != null) {
+                    $email->recoverPass();
+                    $link = "localhost:8080/recover?hash={$email->__get('hash')}";
+                    if($this->sendEmail(
+                        $email->__get('email'),
+                        'Recupere a senha',
+                        '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                        <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
+                        <br>
+                        </a>',
+                        'recover'
+                    )){
+                        $this->confirmPage('recover');
+                    }
+                }
+            } else {
+                $email->__set('email', $_SESSION['resendEmail']);
+                $email->__set('requestType', 'recoverPass');
+                $email->__set('hash', $_SESSION['resendHash']);
+
+                if ($email->userExists() != null) {
+                    $link = "localhost:8080/recover?hash={$email->__get('hash')}";
+                    if($this->sendEmail(
+                        $email->__get('email'),
+                        'Recupere a senha',
+                        '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                        <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
+                        <br>
+                        </a>',
+                        'recover'
+                    )){
+                        $this->confirmPage('recover');
+                    }
+                }
+            }
         }
 
         //called in the path /recover, path /recover called by the link sent in the recover-email
@@ -134,5 +165,83 @@
         public function confirmPage($confirmStatus){
             $_SESSION['confirmStatus'] = $confirmStatus;
             $this->render('confirmEmail', 'layout');
+        }
+        //confirmation of the email after register
+        public function confirmEmail(){
+            $email = Container::getModel('email');
+            $email->__set('hash', md5(rand()));
+            $email->__set('email', $this->__get('email'));
+            $email->__set('requestType', 'confirmAccount');
+            //setting the link that will be send by email
+            $link;
+
+            //we verify if this is the request already exists in database to don't duply the requests
+            if ($email->requestAlreadyExists() == null) {
+                $email->confirmEmail();
+                //if the request don't exists, will be sent an link with a hash generated by this instace
+                $link = "localhost:8080/confirmAccount?hash={$email->__get('hash')}";
+            }
+            else{
+                //if the request already exists, we will request the hash and send the email with the hash
+                $link = "localhost:8080/confirmAccount?hash={$email->requestAlreadyExists()['hash']}";
+            }
+            //after the method send an email successfully, will be render a confirmation page
+            if($this->sendEmail(
+                $email->__get('email'),
+                'Confirme sua conta',
+                '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                    <span style="font-size:18px;color:#1861bf">Confirme sua conta</span>
+                    <br>
+                </a>',
+                'confirmEmail'
+            )){
+                $this->confirmPage('confirmEmail');
+            }
+
+        }
+        //in the path /confirmAccount called in the click at the email link, we get the GET variable and
+        //set the status of the confirmation to true, now the user will be able to use his account.
+        //if the hash already exists, will be redirected to an invalid request page
+        public function confirmAccount(){
+            $email = Container::getModel('email');
+            $email->__set('hash', $_GET['hash']);
+            if ($email->getHash() != null) {   
+                $this->render('accountConfirmed', 'layoutEmail');
+                $email->setStatus();
+            } else {
+                header('Location: /invalidRequest');
+            }
+        }
+        //we call this function every time the user click on the button to resend the confirmation email
+        //will be re-send an confirmation email
+        public function resendRegisterConfirm(){
+            session_start();
+            //we get the SESSION['resendEmail'] variable defined in AuthController and set te email
+            //to Email Model so we can use his functions to send the email with the hash
+            if (!isset($_SESSION['resendEmail'])) {
+                header('Location: /');
+            }
+            $email = Container::getModel('email');
+            $email->__set('email', $_SESSION['resendEmail']);
+            $email->__set('requestType', 'confirmAccount');
+            $link;
+
+            if ($email->requestAlreadyExists() == null) {
+                $link = "localhost:8080/confirmAccount?hash={$email->__get('hash')}";
+            }
+            else{
+                $link = "localhost:8080/confirmAccount?hash={$email->requestAlreadyExists()['hash']}";
+            }
+            if($this->sendEmail(
+                $email->__get('email'),
+                'Confirme sua conta',
+                '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                    <span style="font-size:18px;color:#1861bf">Confirme sua conta</span>
+                    <br>
+                </a>',
+                'confirmEmail'
+            )){
+                $this->confirmPage('resendConfirmEmail');
+            }
         }
     }

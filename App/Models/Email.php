@@ -73,11 +73,11 @@
         public function getStatus(){
             $query = "
                 SELECT 
-                    *
+                    status
                 FROM 
                     email_request
                 WHERE
-                    status = 0
+                    hash = :hash
             ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':hash', $this->__get('hash'));
@@ -92,7 +92,7 @@
                 UPDATE
                     email_request
                 SET
-                    STATUS = 1
+                    STATUS = !STATUS
                 WHERE
                     hash = :hash
                 ";
@@ -141,6 +141,77 @@
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':hash', $this->__get('hash'));
             $stmt->bindValue(':oldPass', $this->__get('oldPass'));
+            $stmt->execute();
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        //inserting the request in database
+        public function confirmEmail(){
+            $query = "
+                INSERT INTO
+                    email_request (email, hash, type, status)
+                VALUES (:email, :hash, :type, :status)
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':email', $this->__get('email'));
+            $stmt->bindValue(':hash', $this->__get('hash'));
+            $stmt->bindValue(':type', $this->__get('requestType'));
+            $stmt->bindValue(':status', '0');
+            $stmt->execute();
+        }
+        //function to verify if the account is confirmed
+        public function getEmailConfirmation(){
+            $query = "
+                SELECT
+                    status
+                FROM
+                    email_request
+                WHERE
+                    email = (
+                        SELECT
+                            email
+                        FROM
+                            users
+                        WHERE
+                            email = :email
+                    ) AND type = 'confirmAccount'
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':email', $this->__get('email'));
+            $stmt->execute();
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        //to verify if the the request already exists
+        public function requestAlreadyExists(){
+            $query = "
+                SELECT
+                    *
+                FROM
+                    email_request
+                WHERE
+                    email = :email AND type = :type
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':email', $this->__get('email'));
+            $stmt->bindValue(':type', $this->__get('requestType'));
+            $stmt->execute();
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        //to get the hash by email
+        public function getHashPerEmail(){
+            $query = "
+                SELECT
+                    hash
+                FROM
+                    email_request
+                WHERE
+                    email = :email AND type = :type
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':email', $this->__get('email'));
+            $stmt->bindValue(':type', $this->__get('requestType'));
             $stmt->execute();
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
