@@ -30,8 +30,8 @@
                         'email' => null,
                         'pass' => null
                     );
-                    isset($_GET['authCode']) ? $_GET['authCode'] = $_GET['authCode'] : $_GET['authCode'] = '';
-                    isset($_SESSION['remember']) ? $_SESSION['remember'] = $_SESSION['remember'] : $_SESSION['remember'] = '';
+                    $_GET['authCode'] = isset($_GET['authCode']) ? $_GET['authCode'] : '';
+                    $_SESSION['remember'] = isset($_SESSION['remember']) ? $_SESSION['remember'] : '';
             }
             $this->render('index', 'layout');
         }

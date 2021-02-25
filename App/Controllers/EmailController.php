@@ -121,10 +121,11 @@
         public function newPass(){
             session_start();
             //if to verify if the request is valid
-            if (!isset($_SESSION['passStatus'])) {
+            while (!isset($_SESSION['passStatus'])) {
                 header('Location: /invalidRequest');
                 unset($_SESSION);
                 session_destroy();
+                return;
             }
             $email = Container::getModel('email');
             $this->__set('hash', $_SESSION['hash']);
@@ -205,12 +206,12 @@
         public function confirmAccount(){
             $email = Container::getModel('email');
             $email->__set('hash', $_GET['hash']);
-            if ($email->getHash() != null) {   
-                $this->render('accountConfirmed', 'layoutEmail');
-                $email->setStatus();
-            } else {
+            while ($email->getHash() == null) {   
                 header('Location: /invalidRequest');
+                return;
             }
+            $this->render('accountConfirmed', 'layoutEmail');
+            $email->setStatus();
         }
         //we call this function every time the user click on the button to resend the confirmation email
         //will be re-send an confirmation email
