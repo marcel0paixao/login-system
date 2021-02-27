@@ -4,13 +4,13 @@
 This is a simple login system with CRUD, project uses HTML5, CSS3, JS, VueJs, Bootstrap, PHP7, MySQL, and MVC architecture. In this project, we can create an account, login, edit your personal information and complete delete your account.
 
 ## Login
-![](/Public/img/printscreenLogin.png)
+![](/Public/img/printscreenLogin2.png)
 
 ## Home
-![](/Public/img/printscreenHome.png)
+![](/Public/img/printscreenHome2.png)
 
 ## Deleting Account
-![](/Public/img/printscreenDelete.png)
+![](/Public/img/printscreenDelete2.png)
  
 # How to install
 1. Go to App/Connection.php and insert the database info, as host, database name, login and password. By default are:
