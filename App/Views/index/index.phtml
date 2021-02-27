@@ -1,91 +1,8 @@
 <div class="container">
     <div class="row px-3">
-        <div id="login" class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 bg-transparent">
-            <div class="img-left d-none d-xl-flex w-50">
-                <div class="container my-5">
-                    <div class="row bg-transparent">
-                        <h1 id="DevW" class=" ml-4 mb-5">Developed with</h1>
-                        <div id="carousel-control" class="carousel slide h-100 w-100" data-ride="carousel"><!-- Carousel -->
-                            <div class="carousel-inner"><!--Inner -->
-                                
-                                <div class="carousel-item active carousel-itens">
-                                    <div class="carousel-title">
-                                        <h1 class="h1">Front-end</h1>
-                                    </div>
-                                    <div class="carousel-content justify-content-around">
-                                        <div class="front-end1 clearfix">
-                                            <div class="carousel-content">
-                                                    <i class="fab fa-html5 html img-left-icons"></i>
-                                                    <i class="fab fa-css3-alt css img-left-icons"></i>
-                                                </div>
-                                                <div class="carousel-content">
-                                                    <h5 id="html">HTML5</h5>
-                                                    <h5 id="css">CSS3</h5>
-                                                </div>
-                                            </div>
-                                            <div class="front-end1 clearfix">
-                                                <div class="carousel-content">
-                                                <i class="fab fa-js-square js img-left-icons"></i>
-                                                <i class="fab fa-vuejs vue img-left-icons"></i>
-                                            </div>
-                                            <div class="carousel-content">
-                                                <h5 id="js">JavaScript</h5>
-                                                <h5 id="vue">VueJs</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="carousel-item carousel-itens">
-                                    <div class="carousel-title">
-                                        <h1 class="h1">Back-end</h1>
-                                    </div>
-                                    <div class="carousel-content justify-content-around">
-                                    <div class="front-end1 clearfix">
-                                            <div class="carousel-content">
-                                                <i class="fab fa-php php img-left-icons"></i>
-                                                <i class="fas fa-database sql img-left-icons"></i>
-                                            </div>
-                                            <div class="carousel-content clearfix">
-                                                <h5 id="php">PHP</h5>
-                                                <h5 id="sql">MySQL</h5>
-                                            </div>
-                                        </div>
-                                        <div class="front-end1 clearflix">
-                                            <div class="carousel-content mt-3">
-                                                <i class="fas fa-sync ajax img-left-icons"></i>
-                                                <i class="fas fa-sitemap mvc img-left-icons"></i>
-                                            </div>
-                                            <div class="carousel-content clearfix">
-                                                <h5 id="ajax">Ajax</h5>
-                                                <h5 id="mvc">MVC</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div><!--/Inner -->
-
-                            <!-- Controls -->
-                            <a href="#carousel-control" class="carousel-control-prev" data-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                            </a>
-
-                            <a href="#carousel-control" class="carousel-control-next" data-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                            </a>
-
-                        </div><!-- Carousel -->
-
-                    </div>
-                </div>
-            </div>
+        <div id="login" class="col-xl-5 col-lg-5 col-md-8 card flex-row mx-auto px-0">
             <div class="card-body" v-if="login">
-                <a href="#" class="logo">
-                    <img class="logo" src="img/logo.png" alt="">
-                </a>
-                <hr>
-                <h4 class="title text-center mt-4">
+                <h4 class="title text-center mt-2">
                     Sign into your account
                 </h4>
                 <form class="form-box px-3" method="post" action="/auth">
@@ -118,7 +35,7 @@
                     <div class="mb-3">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="cb1" name="remember" <?= ($_SESSION['remember'] === 'on')? 'checked': ''; ?>>
-                            <label class="custom-control-label" for="cb1">Remember me</label>
+                            <label class="custom-control-label ml-2" for="cb1">Remember me</label>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -126,7 +43,7 @@
                     </div>
 
 
-                    <div class="text-right mb-1">
+                    <div class="text-right mb-2">
                         <a class="forget-link" @click="forgetForm">Forget password?</a>
                     </div>
                     <div class="text-center mb-3">
@@ -143,9 +60,9 @@
                             <a href="#" class="btn btn-block btn-social btn-twitter"><i class="fab fa-twitter fa-2x"></i></a>
                         </div>
                     </div>
-                    <hr class="my-4">
+                    <hr>
 
-                    <div class="text-center mb-2">
+                    <div class="text-center">
                         Don't have an account?
                         <a id="register" class="register-link" @click="registerForm">Register here</a>
                     </div>
@@ -195,7 +112,7 @@
                 </form>
             </div>
 
-            <div class="card-body w-50" v-if="forget">
+            <div class="card-body w-25" v-if="forget">
                 <a @click="loginForm"><i class="fas fa-arrow-left backArrow"></i></a>
                 <hr>
                 <h4 class="title text-center">

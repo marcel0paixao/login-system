@@ -118,10 +118,13 @@
         */
         public function edit(){
             $query = "
-                UPDATE users SET ".$this->__get('edit')." = '".$this->__get($this->__get('edit'))."' WHERE id = 1
+                UPDATE users SET ".$this->__get('edit')." = '".$this->__get($this->__get('edit'))."' WHERE id = :id
             ";
             $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id', $this->__get('id'));
             $stmt->execute();
+            print_r($this->getUser());
+            print_r($query);
 
             return $this->getUser();
         }

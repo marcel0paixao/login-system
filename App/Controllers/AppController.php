@@ -50,7 +50,7 @@
             //setting the global variable info as the return of the edit() function
             $this->view->info = $user->edit();
 
-            header('Location: /home');        
+            header('Location: /home');
         }
         /*
         * Here we have 2 functions with mostly the same name.

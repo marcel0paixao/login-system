@@ -1,17 +1,12 @@
 <div id="home" class="container">
     <div class="row px-3">
-        <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
-            <div class="d-none d-md-flex">
-                <div class="container my-5">
-                    <div class="row">
-                        <i class="far fa-address-card addressCardLogo"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-body">
-                <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 mr-5">
+                <div class="col-lg-6 col-12 card flex-row px-0">
                     <div class="card-body text-center">
+                        <div>
+                            <div class="row">
+                                <i class="far fa-address-card addressCardLogo"></i>
+                            </div>
+                        </div>
                         <form method="post" class="form-box clearfix" action="/edit">
                             <div v-if="!editNameState">
                                 <h1 class="title text-center mt-1">
@@ -67,7 +62,5 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 </div>
