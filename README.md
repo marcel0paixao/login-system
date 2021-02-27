@@ -11,7 +11,7 @@ This is a simple login system with CRUD, project uses HTML5, CSS3, JS, VueJs, Bo
 
 ## Deleting Account
 ![](/Public/img/printscreenDelete.png)
-
+ 
 # How to install
 1. Go to App/Connection.php and insert the database info, as host, database name, login and password. By default are:
 ```
