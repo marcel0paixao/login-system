@@ -247,8 +247,8 @@ body{
         color: white;
     }
     .deleteForm{
-        width: 96%; 
-        height: 85%;
+        width: 75%; 
+        height: 65%;
     }
     .form-box button[type="submit"]{
         margin-top: 10px;

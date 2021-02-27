@@ -1,7 +1,7 @@
 # LOGIN SYSTEM
 
 # Description
-This is a simple login system with CRUD, project uses HTML5, CSS3, JS, VueJs, Bootstrap, PHP7, MySQL, Ajax (Not now, but I'll do a few alterations in future and include), and MVC architecture. In this project, we can create an account, login, edit your personal information and complete delete your account.
+This is a simple login system with CRUD, project uses HTML5, CSS3, JS, VueJs, Bootstrap, PHP7, MySQL, and MVC architecture. In this project, we can create an account, login, edit your personal information and complete delete your account.
 
 ## Login
 ![](/Public/img/printscreenLogin.png)
@@ -48,14 +48,10 @@ And now you can use the login system with no problems, creating accounts, editin
 # Problems
 Problems that I had:
 
-1. I could not implement Ajax already, I alter this later.
-2. Login using Facebook, Gmail or Twitter is not implemented.
-3. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
-4. The file style.css haven't a good organization, I'm going to solve this later.
+1. Login using Facebook, Gmail or Twitter is not implemented.
+2. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
+5. The file style.css is not well organized.
 5. My little VueJS experience make the home.js and login.js with a maybe not so perfectly organization too. 
-
-# Credits
-Credits for the background image: Daniele Levis Pelusi.
 
 # Author
 I'm Marcelo da Paixão, a student of computer science and a beginner full-stack developer.
