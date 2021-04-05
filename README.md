@@ -4,13 +4,13 @@
 This is a simple login system with CRUD, project uses HTML5, CSS3, JS, VueJs, Bootstrap, PHP7, MySQL, and MVC architecture. In this project, we can create an account, login, edit your personal information and complete delete your account.
 
 ## Login
-![](/Public/img/printscreenLogin2.png)
+![](/Public/img/login.png)
 
 ## Home
-![](/Public/img/printscreenHome2.png)
+![](/Public/img/home.png)
 
 ## Deleting Account
-![](/Public/img/printscreenDelete2.png)
+![](/Public/img/delete.png)
  
 # How to install
 1. Go to App/Connection.php and insert the database info, as host, database name, login and password. By default are:
@@ -48,10 +48,9 @@ And now you can use the login system with no problems, creating accounts, editin
 # Problems
 Problems that I had:
 
-1. Login using Facebook, Gmail or Twitter is not implemented.
-2. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
-5. The file style.css is not well organized.
-5. My little VueJS experience make the home.js and login.js with a maybe not so perfectly organization too. 
+1. In App/Models/User.php in the function edit, for some reason the bindValue was not working corretly, so I used dots.
+2. The file style.css is not well organized.
+3. My little VueJS experience make the home.js and login.js with a maybe not so perfectly organization too. 
 
 # Author
 I'm Marcelo da Paixão, a student of computer science and a beginner full-stack developer.

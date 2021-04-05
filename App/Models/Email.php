@@ -216,5 +216,31 @@
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
+        //function to update all the request for the related email
+        public function updateEmail(){
+            $query="
+                UPDATE
+                    email_request
+                SET
+                    email = :email
+                WHERE
+                    email = (
+                        SELECT
+                            email
+                        FROM
+                            users
+                        WHERE
+                            id = :id
+                            )
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':email', $this->__get('email'));
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            echo $query;
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
     }
 ?>

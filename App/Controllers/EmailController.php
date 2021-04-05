@@ -70,14 +70,17 @@
                     $link = "localhost:8080/recover?hash={$email->__get('hash')}";
                     if($this->sendEmail(
                         $email->__get('email'),
-                        'Recupere a senha',
-                        '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
-                        <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
+                        'Recover the password',
+                        'Click <a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                        <span style="font-size:18px;color:#1861bf">here</span>
                         <br>
-                        </a>',
+                        </a> to recover the password',
                         'recover'
                     )){
                         $this->confirmPage('recover');
+                    }
+                    else{
+                        echo 'email credentials wrong in PHPMailer, please verify if the email credentials are correct in vendor/MF/Controller/Emails.php';
                     }
                 }
             } else {
@@ -89,14 +92,17 @@
                     $link = "localhost:8080/recover?hash={$email->__get('hash')}";
                     if($this->sendEmail(
                         $email->__get('email'),
-                        'Recupere a senha',
-                        '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
-                        <span style="font-size:18px;color:#1861bf">Recupere agora a senha</span>
+                        'Recover password',
+                        'Click <a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                        <span style="font-size:18px;color:#1861bf">here</span>
                         <br>
-                        </a>',
+                        </a> to recover the password',
                         'recover'
                     )){
                         $this->confirmPage('recover');
+                    }
+                    else{
+                        echo 'email credentials wrong in PHPMailer, please verify if the email credentials are correct in vendor/MF/Controller/Emails.php';
                     }
                 }
             }
@@ -189,16 +195,18 @@
             //after the method send an email successfully, will be render a confirmation page
             if($this->sendEmail(
                 $email->__get('email'),
-                'Confirme sua conta',
-                '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
-                    <span style="font-size:18px;color:#1861bf">Confirme sua conta</span>
+                'Confirm your account',
+                'Click <a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                    <span style="font-size:18px;color:#1861bf">here</span>
                     <br>
-                </a>',
+                </a> to confirm your account',
                 'confirmEmail'
             )){
                 $this->confirmPage('confirmEmail');
             }
-
+            else{
+                echo 'email credentials wrong in PHPMailer, please verify if the email credentials are correct in vendor/MF/Controller/Emails.php';
+            }
         }
         //in the path /confirmAccount called in the click at the email link, we get the GET variable and
         //set the status of the confirmation to true, now the user will be able to use his account.
@@ -235,14 +243,17 @@
             }
             if($this->sendEmail(
                 $email->__get('email'),
-                'Confirme sua conta',
-                '<a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
-                    <span style="font-size:18px;color:#1861bf">Confirme sua conta</span>
+                'Confirm your account',
+                'Click <a style="color:#404040;font-size:16px;line-height:1.3;text-decoration:none" href="http://'. $link.'">
+                    <span style="font-size:18px;color:#1861bf">here</span>
                     <br>
-                </a>',
+                </a> to confirm your account',
                 'confirmEmail'
             )){
                 $this->confirmPage('resendConfirmEmail');
+            }
+            else{
+                echo 'email credentials wrong in PHPMailer, please verify if the email credentials are correct in vendor/MF/Controller/Emails.php';
             }
         }
     }

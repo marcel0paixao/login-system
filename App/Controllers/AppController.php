@@ -40,6 +40,14 @@
             $this->validateAuth();
 
             $user = Container::getModel('user');
+
+            //verify if the user changed the email, and if yes, we have to change the email requests too for security
+            if(isset($_POST['email'])){
+                $email = Container::getModel('email');
+                $email->__set('id', $_SESSION['id']);
+                $email->__set('email', $_POST['email']);
+                $email->updateEmail();
+            }
             //setting the id that the info will be edited
             $user->__set('id', $_SESSION['id']);
             //setting what information the user wan't to edit

@@ -203,7 +203,6 @@ body{
 .input-edit{
     margin-top: 5px;
     float: left;
-    width: 250px;
 }
 #deleteUserIcon{
     font-size: 110px;
@@ -234,7 +233,7 @@ body{
 }
 @media (max-width: 576px) {
     .form-input input{
-        width: 100% !important;
+        width: 100%;
         height: 55px;
         padding-left: 35px;
         margin-bottom: 20px;
@@ -270,6 +269,9 @@ body{
     .resend{
         width: 70%;
     }
+    #home .form-input input{
+        width: 88%;
+    }
 }
 @media (min-width: 300px) and (max-width: 850px){
     .form-input input{
@@ -289,18 +291,16 @@ body{
         margin-right: 20px;
         margin-top: 20px !important;
     }
-    .input-edit{
-        margin-top: 5px;
-        float: left;
-        width: 20px !important;
-    }
     .btn-edit{
         float: right;
     }
 }
+#home .form-input input{
+    width: 88%;
+}
 @media (min-width: 1000px){
     .form-input input{
-        width: 100% !important;
+        width: 100%;
         height: 55px;
         padding-left: 40px;
         margin-bottom: 20px;
@@ -316,9 +316,43 @@ body{
         margin-right: 20px;
         margin-top: 20px !important;
     }
-    .input-edit{
-        margin-top: 5px;
-        float: left;
-        width: 200px !important;
+}
+@media (max-width: 520px){
+    #home .form-input input{
+        width: 78%;
+    }
+    .form-input input{
+        padding-left: 15px;
+    }
+}
+@media (min-height: 750px) and (max-height: 800px){
+    .card{
+        height: 680px;
+        margin-bottom: 50px !important;
+    }
+    .addressCardLogo{
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0 !important;
+    }
+    h1{
+        font-size: 30px;
+    }
+    #logoffAndDelete{
+        margin-top: 30%;
+    }
+}
+@media (max-height: 749px){
+    .card{
+        height: 600px;
+        margin-bottom: 50px !important;
+    }
+    .addressCardLogo{
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0 !important;
+    }
+    h1{
+        font-size: 30px;
     }
 }
